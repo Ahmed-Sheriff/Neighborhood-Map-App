@@ -59,7 +59,7 @@ class LocationList extends Component {
                  />
                 
                 {this.props.allMarkersList.map((list,index)=> 
-                    <li className = 'link' key={index} > {list.title} </li>  
+                    <li className = 'link' key={index} > {list.categories.map(names => names.name )} </li>  
                     
                     )
                 }
