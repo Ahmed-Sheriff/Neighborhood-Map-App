@@ -135,7 +135,7 @@ div.infoWindow {
   }
 }
 
-/* from up to 380px width */
+/*  up to 380px width */
 
 @media screen and (min-width:380px){
 
@@ -145,7 +145,7 @@ div.infoWindow {
   }
 }
 
-/* from up to 640px height  */
+/*  up to 640px height  */
 
 @media screen and (min-height:640px) {
   #navigation .menu-list  {
