@@ -6,10 +6,13 @@ import './App.css';
 
 class App extends Component {
 
-
   state = {
    
-    allMarkers : []
+    allMarkers : [],
+
+    query : '',
+
+    specificMarker : []
  
   }
 
@@ -24,7 +27,8 @@ class App extends Component {
     }).catch(function(error){
             alert('There is error with Network ' + error );
         })
-  }
+  } // End component did mount
+
 
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
     if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
@@ -38,6 +42,7 @@ class App extends Component {
           
         });
 
+        // Display markers and info windows  
         for(let i= 0; i < this.state.allMarkers.length; i++ ){
 
            let marker = new window.google.maps.Marker({
@@ -48,14 +53,32 @@ class App extends Component {
             info : this.state.allMarkers[i].categories.map(names => names.name )
           });
 
-           let infoWindow = new window.google.maps.InfoWindow({
-            content : `<div className = 'infoWindow'><p>${marker.info}.${marker.title}</p></div>`                
+            let infoWindow = new window.google.maps.InfoWindow({
+              content : (`<div class = 'infoWindow'><p>${marker.info} - ${marker.title}</p></div>`)                 
           })
-          marker.addListener('click',function(){
-            infoWindow.open(map,marker) ;   
-          })  
-        }
 
+            marker.addListener('click',function(){
+              infoWindow.open(map,marker) ;   
+            }) 
+              
+        } // End Display markers and info windows  
+
+    
+      //   // Search in List filter 
+      //   searchFilter(query){
+      //     this.setState({query : query})
+      //   let input = query.toLowerCase();
+      //   let oneMarker =  new window.google.maps.Marker({
+      //     info : this.state.allMarkers.categories.forEach(names=> names.name )
+      //   })
+      //   if(input === oneMarker.info.toLowerCase()){
+      //       this.setState({specificMarker : oneMarker.info })
+      //   }
+      //   else{
+      //     this.setState({specificMarker:[]})
+      //   }
+      // }
+       
       }
 
   } // End Component will receive props
@@ -63,15 +86,16 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
-      <div className='map'>
-        <div id ='map' >
+      <div className="App" >
+      <div className='map' >
+        <div id ='map' rol= 'application' aria-label = 'location' >
             
         </div>
       </div> 
       {/* End ClassName map */}
 
-      <LocationList allMarkersList = {this.state.allMarkers}  />
+      <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} 
+                    searchFilter = {(event)=>this.searchFilter(event.target.value)} />
 
       </div>
     );

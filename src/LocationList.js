@@ -4,14 +4,10 @@ class LocationList extends Component {
 
     state = {
         isToogleOn : true ,
-
-        query: '' ,
-
-        menuLinks : []
     }
     
      hideMenuList = {
-     left:   "-50%"
+     left:   "-100%"
    }
  
    displayMenuList = {
@@ -22,40 +18,28 @@ class LocationList extends Component {
      this.setState( oldState => ({isToogleOn: oldState.isToogleOn !== true}) )
     }
 
-    //  // Search for markers
-    //  searchMarkers (query) { 
-    //     this.setState({query: query})
-    //     this.props.allMarkersList.forEach(names =>{
-    //         names.title;
-    //         if(query === names.title) {
-    //             this.setState({menuLinks:link})
-                       
-    //           }
-    //     })
-        
-    //     } // Search for markers          
-       
-
+            
     render(){
 
         return (
 
-            <div id = 'navigation'>
-            <nav className = 'heading'>
-            <header>Nieghborhood Locations</header>
-            <div className='hamburger-menu' onClick={this.toggleMenuList}  >
+            <section id = 'navigation' aria-label = 'navigation'>
+            <nav className = 'heading' aria-labelledby = 'header'>
+            <header id='header'>Nieghborhood</header>
+            <div className='hamburger-menu' aria-label = 'hamburger-menu' onClick={this.toggleMenuList}  >
                <p></p>
                <p></p>
                <p></p> 
             </div>
             </nav>
 
-            <ul className='menu-list'
+            <ul className='menu-list' aria-label = 'list-menu' role='list'
                 style = {this.state.isToogleOn ? this.hideMenuList : this.displayMenuList}>
                 
-                <input  type= 'text' name = 'search' placeholder = 'Search for locations'
-                        //value = {this.state.query}
-                        // onChange={(event)=>this.searchMarkers( event.target.value)}
+                <input  type= 'text' name = 'search' aria-label = 'input-search' 
+                        placeholder = 'Search for locations'
+                        value = {this.props.query}
+                        onChange = {(event) => this.props.searchFilter(event.target.value)}
                  />
                 
                 {this.props.allMarkersList.map((list,index)=> 
@@ -66,7 +50,7 @@ class LocationList extends Component {
 
             </ul> 
 
-            </div> // End of div navigation
+            </section> // End of section navigation
 
         )
     }
