@@ -29,7 +29,6 @@ class App extends Component {
         })
   } // End component did mount
 
-
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
     if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
       
@@ -63,26 +62,23 @@ class App extends Component {
               
         } // End Display markers and info windows  
 
-    
-      //   // Search in List filter 
-      //   searchFilter(query){
-      //     this.setState({query : query})
-      //   let input = query.toLowerCase();
-      //   let oneMarker =  new window.google.maps.Marker({
-      //     info : this.state.allMarkers.categories.forEach(names=> names.name )
-      //   })
-      //   if(input === oneMarker.info.toLowerCase()){
-      //       this.setState({specificMarker : oneMarker.info })
-      //   }
-      //   else{
-      //     this.setState({specificMarker:[]})
-      //   }
-      // }
+  
        
       }
 
   } // End Component will receive props
 
+      
+         // Search in List filter 
+          searchFilter(query){
+          let input = query.toLowerCase();
+          this.setState({query :input})
+          let markerName = this.state.allMarkers.forEach(names => names.name);
+          if(input === markerName) {
+            console.log(input)
+          }
+      }
+      
   render() {
 
     return (
@@ -95,7 +91,7 @@ class App extends Component {
       {/* End ClassName map */}
 
       <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} 
-                    searchFilter = {(event)=>this.searchFilter(event.target.value)} />
+                    searchFilter = {this.searchFilter(event.target.value)} />
 
       </div>
     );

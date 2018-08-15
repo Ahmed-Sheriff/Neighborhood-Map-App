@@ -25,7 +25,7 @@ class LocationList extends Component {
 
             <section id = 'navigation' aria-label = 'navigation'>
             <nav className = 'heading' aria-labelledby = 'header'>
-            <header id='header'>Nieghborhood</header>
+            <header id='header'>Aswan</header>
             <div className='hamburger-menu' aria-label = 'hamburger-menu' onClick={this.toggleMenuList}  >
                <p></p>
                <p></p>
@@ -33,13 +33,13 @@ class LocationList extends Component {
             </div>
             </nav>
 
-            <ul className='menu-list' aria-label = 'list-menu' role='list'
+            <ul className='menu-list' aria-label = 'list-menu' role='menu'
                 style = {this.state.isToogleOn ? this.hideMenuList : this.displayMenuList}>
                 
                 <input  type= 'text' name = 'search' aria-label = 'input-search' 
                         placeholder = 'Search for locations'
                         value = {this.props.query}
-                        onChange = {(event) => this.props.searchFilter(event.target.value)}
+                        onChange = {this.props.searchFilter(event.target.value)}
                  />
                 
                 {this.props.allMarkersList.map((list,index)=> 
