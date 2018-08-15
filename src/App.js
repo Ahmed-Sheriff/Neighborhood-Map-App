@@ -73,12 +73,12 @@ class App extends Component {
           searchFilter(query){
           let input = query.toLowerCase();
           this.setState({query :input})
-          let markerName = this.state.allMarkers.forEach(names => names.name);
+          let markerName = this.state.allMarkers.categories.forEach(names => names.name);
           if(input === markerName) {
             console.log(input)
           }
       }
-      
+
   render() {
 
     return (
