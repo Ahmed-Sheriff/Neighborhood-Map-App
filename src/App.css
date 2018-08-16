@@ -4,32 +4,31 @@ body{
   height: 100%
 }
 
-.map {
+ .App {
+   width: 100%;
   height: 100vh;
-}
+} 
 
 #map{
   width: 100%;
-  height: 100%;
+  height: calc(100% - 43px);
   overflow: hidden;
-  position: static;
+  position: relative;
 }
 
 /* Start navigation */
 
 #navigation {
-  position: absolute;
-  top : 0;
   width:100%;
- 
+  height: auto;
 }
 
 #navigation nav.heading {
   background-color : black;
+  opacity : 1;
   padding : 10px 0;
   text-align: center;
   width: 100%;
-  height: 25px; 
   display:flex;
   flex-wrap: nowrap;
 }
@@ -40,12 +39,12 @@ body{
   flex-grow: 1;
 }
 
-#navigation nav.heading .hamburger-menu {
+#locationList .hamburger-menu {
   position :absolute;
   top : 10px;
   left: 20px; 
 }
-#navigation nav.heading .hamburger-menu p {
+#locationList .hamburger-menu p {
 
   width:25px;
   height: 2px;
@@ -53,13 +52,14 @@ body{
   background-color: whitesmoke;
 }
 
-#navigation nav.heading .hamburger-menu:hover {
+#locationList .hamburger-menu:hover {
 
   cursor: pointer;
 }
 
-#navigation .menu-list {
-  position: absolute; 
+#locationList .menu-list {
+  position: absolute;
+  top: 43px ; 
   left: 0;
   margin: 0;
   background-color: darkturquoise;
@@ -75,7 +75,7 @@ body{
   
 }
 
-#navigation .menu-list input {
+#locationList .menu-list input {
   margin: 0;
   width:100%;
   height: 35px;
@@ -87,16 +87,16 @@ body{
 } 
 
 
-#navigation ul.menu-list li {
+#locationList ul.menu-list li {
   padding: 13px 0 13px 13px ;
   margin-bottom : 10px;
 }
 
-#navigation ul.menu-list li:last-of-type {
+#locationList ul.menu-list li:last-of-type {
   margin-bottom: 0;
 }
 
-#navigation ul.menu-list li:hover {
+#locationList ul.menu-list li:hover {
   cursor: pointer;
   background-color: gold;
 }
@@ -144,7 +144,7 @@ div.infoWindow {
 /*  from 640px height to the max  */
 
 @media screen and (min-height:640px) {
-  #navigation .menu-list  {
+  #locationList .menu-list  {
 
     min-height: 90vh;
   }

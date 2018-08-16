@@ -70,28 +70,36 @@ class App extends Component {
 
       
          // Search in List filter 
-          searchFilter(query){
-          let input = query.toLowerCase();
-          this.setState({query :input})
-          let markerName = this.state.allMarkers.categories.forEach(names => names.name);
-          if(input === markerName) {
-            console.log(input)
-          }
-      }
+      //     searchFilter(query){
+      //     let input = query.toLowerCase();
+      //     this.setState({query :input})
+      //     let markerName = this.state.allMarkers.categories.forEach(names => names.name);
+      //     if(input === markerName) {
+      //       console.log(input)
+             
+      //     }
+      // }
 
   render() {
 
     return (
       <div className="App" >
-      <div className='map' >
+       <section id = 'navigation' aria-label = 'navigation'>
+        <nav className = 'heading' aria-labelledby = 'header'>
+        <header id='header'>Aswan</header>
+        </nav>
+      </section>
+
+     
         <div id ='map' rol= 'application' aria-label = 'location' >
             
         </div>
-      </div> 
+      
       {/* End ClassName map */}
 
       <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} 
-                    searchFilter = {this.searchFilter(event.target.value)} />
+                   // searchFilter = {this.searchFilter(event.target.value)} 
+                    />
 
       </div>
     );

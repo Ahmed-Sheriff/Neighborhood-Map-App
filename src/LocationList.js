@@ -23,23 +23,21 @@ class LocationList extends Component {
 
         return (
 
-            <section id = 'navigation' aria-label = 'navigation'>
-            <nav className = 'heading' aria-labelledby = 'header'>
-            <header id='header'>Aswan</header>
+            <nav id = 'locationList' aria-label = 'location-list' >
             <div className='hamburger-menu' aria-label = 'hamburger-menu' onClick={this.toggleMenuList}  >
                <p></p>
                <p></p>
                <p></p> 
             </div>
-            </nav>
+            
 
-            <ul className='menu-list' aria-label = 'list-menu' role='menu'
+            <ul className='menu-list' aria-label = 'list-menu' role='menu-list'
                 style = {this.state.isToogleOn ? this.hideMenuList : this.displayMenuList}>
                 
                 <input  type= 'text' name = 'search' aria-label = 'input-search' 
                         placeholder = 'Search for locations'
                         value = {this.props.query}
-                        onChange = {this.props.searchFilter(event.target.value)}
+                        //onChange = {this.props.searchFilter(event.target.value)}
                  />
                 
                 {this.props.allMarkersList.map((list,index)=> 
@@ -50,7 +48,7 @@ class LocationList extends Component {
 
             </ul> 
 
-            </section> // End of section navigation
+           </nav> 
 
         )
     }
