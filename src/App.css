@@ -137,7 +137,7 @@ div.infoWindow {
 
   #navigation nav.heading #header::after{
     
-    content: ' Location';
+    content: ' City ';
   }
 }
 
