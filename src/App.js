@@ -18,7 +18,7 @@ class App extends Component {
 
 
   componentDidMount(){
-    fetch("https://api.foursquare.com/v2/venues/search?ll=24.0889,32.8998&client_id=NCUSJNELMTZK52IO4UXZDZTOXMDCGM1DZGO5NNP33BCZWX1Y&client_secret=K3CG2UZDUN4V2GBYLO5Z3PA0Q3GDW55R2X3LHBUHOA14R4VS&v=20180808").then(function(response){
+    fetch("https://api.foursquare.com/v2/venues/search?ll=24.0889,32.8998&intent=browse&limit=16&radius=10000&query=restaurant&client_id=NCUSJNELMTZK52IO4UXZDZTOXMDCGM1DZGO5NNP33BCZWX1Y&client_secret=K3CG2UZDUN4V2GBYLO5Z3PA0Q3GDW55R2X3LHBUHOA14R4VS&v=20180808").then(function(response){
 
       if(response.ok){
          return response.json();
@@ -60,7 +60,7 @@ class App extends Component {
           });
 
             let infoWindow = new window.google.maps.InfoWindow({
-              content : (`<div class = 'infoWindow'><p>${marker.info} - ${marker.title}</p></div>`)                 
+              content : (`<div class = 'infoWindow'><p> ${marker.title} </p></div>`)                 
           })
 
             marker.addListener('click',function(){
