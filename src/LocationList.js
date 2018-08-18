@@ -17,7 +17,7 @@ class LocationList extends Component {
    }
  
     toggleMenuList = () => {
-        let listName = this.props.allMarkersList.map(place => place.categories.map(p => p.name));
+        let listName = this.props.allMarkersList.map(place => place.name);
         this.setState({
             list: listName
         }) ;
@@ -27,7 +27,7 @@ class LocationList extends Component {
 
 // Search in List filter 
 searchFilter = (query)=>{
-let markerName = this.props.allMarkersList.map(place => place.categories.map(p => p.name));
+let markerName = this.props.allMarkersList.map(place => place.name);
 if(query.toLowerCase()){
     this.setState({query:query})
    let filter =   markerName.filter(p => p == query);
@@ -40,8 +40,7 @@ if(query.toLowerCase()){
         list: markerName
     }) ;
 }  
-    //    console.log('state',this.state.query);
-      
+     
 }
             
     render(){
