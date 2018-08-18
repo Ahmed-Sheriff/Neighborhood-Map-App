@@ -4,6 +4,8 @@ class LocationList extends Component {
 
     state = {
         isToogleOn : true ,
+        query:'',
+        list : [] 
     }
     
      hideMenuList = {
@@ -15,35 +17,58 @@ class LocationList extends Component {
    }
  
     toggleMenuList = () => {
+        let listName = this.props.allMarkersList.map(place => place.categories.map(p => p.name));
+        this.setState({
+            list: listName
+        }) ;
      this.setState( oldState => ({isToogleOn: oldState.isToogleOn !== true}) )
     }
 
+
+// Search in List filter 
+searchFilter = (query)=>{
+let markerName = this.props.allMarkersList.map(place => place.categories.map(p => p.name));
+if(query.toLowerCase()){
+    this.setState({query:query})
+   let filter =   markerName.filter(p => p == query);
+    this.setState({
+                list: filter
+      }) ;
+}else{
+    this.setState({query})
+    this.setState({
+        list: markerName
+    }) ;
+}  
+    //    console.log('state',this.state.query);
+      
+}
             
     render(){
-
         return (
 
             <nav id = 'locationList' aria-label = 'location-list' >
-            <div className='hamburger-menu' aria-label = 'hamburger-menu' onClick={this.toggleMenuList}  >
-               <p></p>
+            <div className='hamburger-menu' aria-label = 'hamburger-menu' tabIndex = '0'
+                onClick={this.toggleMenuList} onKeyPress={this.toggleMenuList} >
+               <p></p> 
                <p></p>
                <p></p> 
             </div>
             
 
-            <ul className='menu-list' aria-label = 'list-menu' role='menu-list'
+            <ul className='menu-list'  aria-label = 'list-menu' tabIndex = '1' 
                 style = {this.state.isToogleOn ? this.hideMenuList : this.displayMenuList}>
                 
                 <input  type= 'text' name = 'search' aria-label = 'input-search' 
                         placeholder = 'Search for locations'
-                        value = {this.props.query}
-                        //onChange = {this.props.searchFilter(event.target.value)}
+                        value = {this.state.query}
+                        onChange = {(e)=>this.searchFilter(e.target.value)}
                  />
                 
-                {this.props.allMarkersList.map((list,index)=> 
-                    <li className = 'link' key={index} > {list.categories.map(names => names.name )} </li>  
-                    
-                    )
+                {this.state.list.map((list,index)=> 
+                    <li className = 'link' tabIndex= '0' key={index} > {list} </li>  
+
+                    )  
                 }
 
             </ul> 

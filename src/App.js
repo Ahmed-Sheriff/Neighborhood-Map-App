@@ -10,11 +10,12 @@ class App extends Component {
    
     allMarkers : [],
 
-    query : '',
+    // createMap : {},
 
-    specificMarker : []
+    // createMarker : {}
  
   }
+
 
   componentDidMount(){
     fetch("https://api.foursquare.com/v2/venues/search?ll=24.0889,32.8998&client_id=NCUSJNELMTZK52IO4UXZDZTOXMDCGM1DZGO5NNP33BCZWX1Y&client_secret=K3CG2UZDUN4V2GBYLO5Z3PA0Q3GDW55R2X3LHBUHOA14R4VS&v=20180808").then(function(response){
@@ -23,15 +24,20 @@ class App extends Component {
          return response.json();
         }
     }).then((data)=>{
-      this.setState({allMarkers: data.response.venues}) 
+      this.setState({allMarkers: data.response.venues})
     }).catch(function(error){
             alert('There is error with Network ' + error );
         })
+
+        
   } // End component did mount
+
 
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
     if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
       
+     
+
         let map = new window.google.maps.Map(document.getElementById('map'),{
           center : {
                 lat: 24.0889, 
@@ -46,6 +52,7 @@ class App extends Component {
 
            let marker = new window.google.maps.Marker({
             position: this.state.allMarkers[i].location,
+            id : this.state.allMarkers[i].id ,
             title : this.state.allMarkers[i].name,
             map: map,
             animation: window.google.maps.Animation.DROP,
@@ -59,26 +66,12 @@ class App extends Component {
             marker.addListener('click',function(){
               infoWindow.open(map,marker) ;   
             }) 
-              
+          
         } // End Display markers and info windows  
-
-  
-       
+        
       }
-
+         
   } // End Component will receive props
-
-      
-         // Search in List filter 
-      //     searchFilter(query){
-      //     let input = query.toLowerCase();
-      //     this.setState({query :input})
-      //     let markerName = this.state.allMarkers.categories.forEach(names => names.name);
-      //     if(input === markerName) {
-      //       console.log(input)
-             
-      //     }
-      // }
 
   render() {
 
@@ -97,9 +90,7 @@ class App extends Component {
       
       {/* End ClassName map */}
 
-      <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} 
-                   // searchFilter = {this.searchFilter(event.target.value)} 
-                    />
+      <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} />
 
       </div>
     );
