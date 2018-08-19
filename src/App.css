@@ -137,11 +137,7 @@ div.infoWindow {
 
   #navigation nav.heading #header::after{
     
-<<<<<<< HEAD
     content: ' City';
-=======
-    content: ' City ';
->>>>>>> 2b80a7efc5ed9fbb7514760f6acbfec944e8d06a
   }
 }
 
