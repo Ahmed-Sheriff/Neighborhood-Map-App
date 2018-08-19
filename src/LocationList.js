@@ -34,6 +34,7 @@ searchFilter = (query) => {
     const matching = new RegExp(escapeRegExp(query), 'i');
     let filtered = this.props.allMarkersList.filter((place) => matching.test(place.name));
 
+<<<<<<< HEAD
     if (filtered) {
         this.setState({ list: filtered.map(place => place.name) })
     }
@@ -41,6 +42,24 @@ searchFilter = (query) => {
         this.setState({ list: this.props.allMarkersList.map(place => place.name) })
     }
     
+=======
+// Search in List filter 
+searchFilter = (query)=>{
+let markerName = this.props.allMarkersList.map(place => place.name);
+if(query.toLowerCase()){
+    this.setState({query:query})
+   let filter =   markerName.filter(p => p == query);
+    this.setState({
+                list: filter
+      }) ;
+}else{
+    this.setState({query})
+    this.setState({
+        list: markerName
+    }) ;
+}  
+     
+>>>>>>> 2b80a7efc5ed9fbb7514760f6acbfec944e8d06a
 }
   
     render(){
