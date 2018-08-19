@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import escapeRegExp from 'escape-string-regexp';
 
 class LocationList extends Component {
 
     state = {
         isToogleOn : true ,
+
         query:'',
+
         list : [] 
     }
     
@@ -17,34 +20,31 @@ class LocationList extends Component {
    }
  
     toggleMenuList = () => {
-        let listName = this.props.allMarkersList.map(place => place.categories.map(p => p.name));
+        let listName = this.props.allMarkersList.map(place => place.name);
         this.setState({
-            list: listName
+            list:  listName 
         }) ;
+       
+
      this.setState( oldState => ({isToogleOn: oldState.isToogleOn !== true}) )
     }
 
+// Search function
+searchFilter = (query) => {
+    const matching = new RegExp(escapeRegExp(query), 'i');
+    let filtered = this.props.allMarkersList.filter((place) => matching.test(place.name));
 
-// Search in List filter 
-searchFilter = (query)=>{
-let markerName = this.props.allMarkersList.map(place => place.categories.map(p => p.name));
-if(query.toLowerCase()){
-    this.setState({query:query})
-   let filter =   markerName.filter(p => p == query);
-    this.setState({
-                list: filter
-      }) ;
-}else{
-    this.setState({query})
-    this.setState({
-        list: markerName
-    }) ;
-}  
-    //    console.log('state',this.state.query);
-      
+    if (filtered) {
+        this.setState({ list: filtered.map(place => place.name) })
+    }
+    else {
+        this.setState({ list: this.props.allMarkersList.map(place => place.name) })
+    }
+    
 }
-            
+  
     render(){
+
         return (
 
             <nav id = 'locationList' aria-label = 'location-list' >
@@ -61,12 +61,12 @@ if(query.toLowerCase()){
                 
                 <input  type= 'text' name = 'search' aria-label = 'input-search' 
                         placeholder = 'Search for locations'
-                        value = {this.state.query}
                         onChange = {(e)=>this.searchFilter(e.target.value)}
                  />
                 
                 {this.state.list.map((list,index)=> 
-                    <li className = 'link' tabIndex= '0' key={index} > {list} </li>  
+                    <li className = 'link' tabIndex= '0' key={index} 
+                        onClick = {()=> this.props.infoWindowFromList}     > {list} </li>  
 
                     )  
                 }
