@@ -24,6 +24,7 @@ class LocationList extends Component {
             list:  listName ,
             isToogleOn: this.state.isToogleOn !== true
         }) ;
+        
     }
 
 // Search function
@@ -35,9 +36,19 @@ class LocationList extends Component {
         }
         else {
             this.setState({ list: this.props.allMarkersList.map(place => place.name) })
-        }
+        }   
     }
   
+    openInfoWindowFromList =(place) =>{
+        this.props.markersArr.map(marker => {
+        if(marker.title === place){
+          window.google.maps.event.trigger(marker, 'click');
+        }
+      })
+      console.log(place);   
+    }
+
+    
     render(){
 
         return (
@@ -61,7 +72,7 @@ class LocationList extends Component {
                 
                 {this.state.list.map((list,index)=> 
                     <li className = 'link' tabIndex= '0' key={index} 
-                       onClick = {this.props.openInfoWindowFromList}
+                       onClick = {(place)=>this.openInfoWindowFromList(place.title)}
                     > {list} </li>  
 
                     )  

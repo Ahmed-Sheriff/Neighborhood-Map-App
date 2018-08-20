@@ -5,15 +5,13 @@ import LocationList from './LocationList';
 import './App.css';
 
 // Define an array to put created marker into it 
-let markers = [];
+let markersArr = [];
 
 class App extends Component {
 
   state = {
    
     allMarkers : [],
-
-    //filteredList : []
 
   }
 
@@ -52,7 +50,7 @@ class App extends Component {
            });
  
            // Create markers and looping over them to display them on the map  
-           for(let i= 0; i < this.state.allMarkers.length; i++ ){
+          for(let i= 0; i < this.state.allMarkers.length; i++ ){
 
               let marker = new window.google.maps.Marker({
               position: this.state.allMarkers[i].location,
@@ -62,24 +60,21 @@ class App extends Component {
               animation: window.google.maps.Animation.DROP
             });
 
-              markers.push(marker);
+              markersArr.push(marker);
             
               marker.addListener('click',function(){
 
                 infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
                 infoWindow.open(map,marker) ;
 
-              })   
-          
+              }) 
+            
             } 
 
-          console.log(markers);
+          console.log(markersArr);
          
           // End Create markers and looping over them to display them on the map
-          function openInfoWindowFromList (){
-            window.google.maps.event.trigger(markers, 'click');
-          }
-          //Function when you click on one of the list item the info window opens 
+
             
     } // Script Loaded
          
@@ -102,9 +97,7 @@ class App extends Component {
       
       {/* End ClassName map */}
 
-      <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query}
-                    // searchFilter = {(query)=>this.searchFilter(query.event.target.value)}
-                   openInfoWindowFromList = {this.openInfoWindowFromList}
+      <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} markersArr={markersArr}
       />
 
       </div>
