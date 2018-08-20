@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import scriptLoader from 'react-async-script-loader'
 import LocationList from './LocationList';
+// import escapeRegExp from 'escape-string-regexp';
 import './App.css';
 
+// Define an array to put created marker into it 
+let markers = [];
 
 class App extends Component {
 
   state = {
    
     allMarkers : [],
+
+    //filteredList : []
 
   }
 
@@ -22,9 +27,10 @@ class App extends Component {
       this.setState({allMarkers: data.response.venues})
     }).catch(function(error){
             alert('There is error with Network ' + error );
-        })        
-  } // End component did mount
+        })
 
+  } // End component did mount
+  
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
     if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
   
@@ -44,31 +50,37 @@ class App extends Component {
            map.addListener('click', function() {
              infoWindow.close();
            });
-   
+ 
            // Create markers and looping over them to display them on the map  
            for(let i= 0; i < this.state.allMarkers.length; i++ ){
-   
-             let marker = new window.google.maps.Marker({
+
+              let marker = new window.google.maps.Marker({
               position: this.state.allMarkers[i].location,
               id : this.state.allMarkers[i].id ,
               title : this.state.allMarkers[i].name,
               map: map,
-              animation: window.google.maps.Animation.DROP,
-              info : this.state.allMarkers[i].categories.map(names => names.name )
+              animation: window.google.maps.Animation.DROP
             });
-  
-              marker.addListener('click',openInfoWindowFromList) 
-          } 
+
+              markers.push(marker);
+            
+              marker.addListener('click',function(){
+
+                infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
+                infoWindow.open(map,marker) ;
+
+              })   
+          
+            } 
+
+          console.log(markers);
+         
           // End Create markers and looping over them to display them on the map
-
-          // Function when you click on one of the list item the info window opens 
-          function openInfoWindowFromList () {
-            infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
-            infoWindow.open(map,marker) ;   
+          function openInfoWindowFromList (){
+            window.google.maps.event.trigger(markers, 'click');
           }
-
-   
-   
+          //Function when you click on one of the list item the info window opens 
+            
     } // Script Loaded
          
   } // End Component will receive props
@@ -90,8 +102,9 @@ class App extends Component {
       
       {/* End ClassName map */}
 
-      <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} 
-                    openInfoWindowFromList = {this.openInfoWindowFromList}
+      <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query}
+                    // searchFilter = {(query)=>this.searchFilter(query.event.target.value)}
+                   openInfoWindowFromList = {this.openInfoWindowFromList}
       />
 
       </div>

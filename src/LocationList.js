@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import escapeRegExp from 'escape-string-regexp';
-
 class LocationList extends Component {
 
     state = {
@@ -28,16 +27,16 @@ class LocationList extends Component {
     }
 
 // Search function
-searchFilter = (query) => {
-    const matching = new RegExp(escapeRegExp(query), 'i');
-    let filtered = this.props.allMarkersList.filter((place) => matching.test(place.name));
-    if (filtered) {
-        this.setState({ list: filtered.map(place => place.name) })
+    searchFilter = (query) => {
+        const matching = new RegExp(escapeRegExp(query), 'i');
+        let filtered = this.props.allMarkersList.filter((place) => matching.test(place.name));
+        if (filtered) {
+            this.setState({ list: filtered.map(place => place.name) })
+        }
+        else {
+            this.setState({ list: this.props.allMarkersList.map(place => place.name) })
+        }
     }
-    else {
-        this.setState({ list: this.props.allMarkersList.map(place => place.name) })
-    }
-}
   
     render(){
 
@@ -62,7 +61,7 @@ searchFilter = (query) => {
                 
                 {this.state.list.map((list,index)=> 
                     <li className = 'link' tabIndex= '0' key={index} 
-                        onClick = {this.props.openInfoWindowFromList}
+                       onClick = {this.props.openInfoWindowFromList}
                     > {list} </li>  
 
                     )  
