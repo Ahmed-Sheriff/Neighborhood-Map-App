@@ -12,7 +12,7 @@ class App extends Component {
   state = {
    
     allMarkers : [],
-
+    
   }
 
   componentDidMount(){
@@ -32,6 +32,8 @@ class App extends Component {
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
     if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
   
+      if(isScriptLoadSucceed) {
+
         let map = new window.google.maps.Map(document.getElementById('map'),{
           center : {
                 lat: 24.0889, 
@@ -66,7 +68,6 @@ class App extends Component {
 
                 infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
                 infoWindow.open(map,marker) ;
-
               }) 
             
             } 
@@ -74,8 +75,12 @@ class App extends Component {
           console.log(markersArr);
          
           // End Create markers and looping over them to display them on the map
-
-            
+      
+        }
+        else {
+          alert('Error : Script not loaded');
+        }
+       
     } // Script Loaded
          
   } // End Component will receive props
