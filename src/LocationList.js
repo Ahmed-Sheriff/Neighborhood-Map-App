@@ -39,7 +39,7 @@ class LocationList extends Component {
         }   
     }
   
-    openInfoWindowFromList =(place) =>{
+    openInfoWindowFromList (place){
         this.props.markersArr.map(marker => {
         if(marker.title === place){
           window.google.maps.event.trigger(marker, 'click');
@@ -48,7 +48,6 @@ class LocationList extends Component {
       console.log(place);   
     }
 
-    
     render(){
 
         return (
@@ -72,7 +71,7 @@ class LocationList extends Component {
                 
                 {this.state.list.map((list,index)=> 
                     <li className = 'link' tabIndex= '0' key={index} 
-                       onClick = {(place)=>this.openInfoWindowFromList(place.title)}
+                       onClick = {(event)=>this.openInfoWindowFromList(list)}
                     > {list} </li>  
 
                     )  
