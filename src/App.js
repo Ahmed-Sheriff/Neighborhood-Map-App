@@ -102,8 +102,11 @@ class App extends Component {
       
       {/* End ClassName map */}
 
+
       <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} markersArr={markersArr}
       />
+
+        <footer><span>Ahmed Sherif</span></footer>
 
       </div>
     );
