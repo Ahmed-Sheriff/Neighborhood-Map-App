@@ -66,9 +66,17 @@ class App extends Component {
       
 // ********************************************************************
 
-          // Display markers and info windows
+        // Create an info window
         let infoWindow = new window.google.maps.InfoWindow();
 
+        // Event to close infoWindow when clicking on the map 
+        map.addListener('click', function() {
+          infoWindow.close();
+        });
+
+        let bounds = new window.google.maps.LatLngBounds();
+
+        // Create markers and looping over them to display them on the map  
         for(let i= 0; i < this.state.allMarkers.length; i++ ){
 
           let marker = new window.google.maps.Marker({
@@ -83,9 +91,13 @@ class App extends Component {
             infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
              infoWindow.open(map,marker) ;   
            }) 
-         
-       } // End Display markers and info windows  
-          
+
+           bounds.extend(marker.position);
+
+       } // End Create markers and looping over them to display them on the map
+
+          map.fitBounds(bounds);
+
     } // Script Loaded
          
   } // End Component will receive props
