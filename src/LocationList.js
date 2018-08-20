@@ -22,11 +22,9 @@ class LocationList extends Component {
     toggleMenuList = () => {
         let listName = this.props.allMarkersList.map(place => place.name);
         this.setState({
-            list:  listName 
+            list:  listName ,
+            isToogleOn: this.state.isToogleOn !== true
         }) ;
-       
-
-     this.setState( oldState => ({isToogleOn: oldState.isToogleOn !== true}) )
     }
 
 // Search function
@@ -64,7 +62,8 @@ searchFilter = (query) => {
                 
                 {this.state.list.map((list,index)=> 
                     <li className = 'link' tabIndex= '0' key={index} 
-                        onClick = {()=> this.props.infoWindowFromList}     > {list} </li>  
+                        onClick = {this.props.openInfoWindowFromList}
+                    > {list} </li>  
 
                     )  
                 }

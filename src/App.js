@@ -12,7 +12,6 @@ class App extends Component {
 
   }
 
-
   componentDidMount(){
     fetch("https://api.foursquare.com/v2/venues/search?ll=24.0889,32.8998&intent=browse&limit=16&radius=10000&query=restaurant&client_id=NCUSJNELMTZK52IO4UXZDZTOXMDCGM1DZGO5NNP33BCZWX1Y&client_secret=K3CG2UZDUN4V2GBYLO5Z3PA0Q3GDW55R2X3LHBUHOA14R4VS&v=20180808").then(function(response){
 
@@ -38,66 +37,38 @@ class App extends Component {
           
         });
 
-        // create infoWindow
-        // let infoWindow = new window.google.maps.InfoWindow();
+           // Create an info window
+           let infoWindow = new window.google.maps.InfoWindow();
 
-        // // Define this.state.allMarkers
-        // let allMarkers = this.state.allMarkers;
-
-        // // Creating all markers  
-        //   allMarkers.map(myMarker => {
-          
-        //    let marker = new window.google.maps.Marker({
-        //     position: myMarker.location,
-        //     id : myMarker.id ,
-        //     title : myMarker.name,
-        //     map: map,
-        //     animation: window.google.maps.Animation.DROP
-        //   });
-
-        //     marker.addListener('click',function(){
-
-        //     infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
- 
-        //      infoWindow.open(map,marker);   
-        //    })
+           // Event to close infoWindow when clicking on the map 
+           map.addListener('click', function() {
+             infoWindow.close();
+           });
+   
+           // Create markers and looping over them to display them on the map  
+           for(let i= 0; i < this.state.allMarkers.length; i++ ){
+   
+             let marker = new window.google.maps.Marker({
+              position: this.state.allMarkers[i].location,
+              id : this.state.allMarkers[i].id ,
+              title : this.state.allMarkers[i].name,
+              map: map,
+              animation: window.google.maps.Animation.DROP,
+              info : this.state.allMarkers[i].categories.map(names => names.name )
+            });
   
-        //   }) // End of Creating all Markers
-      
-// ********************************************************************
+              marker.addListener('click',openInfoWindowFromList) 
+          } 
+          // End Create markers and looping over them to display them on the map
 
-        // Create an info window
-        let infoWindow = new window.google.maps.InfoWindow();
-
-        // Event to close infoWindow when clicking on the map 
-        map.addListener('click', function() {
-          infoWindow.close();
-        });
-
-        let bounds = new window.google.maps.LatLngBounds();
-
-        // Create markers and looping over them to display them on the map  
-        for(let i= 0; i < this.state.allMarkers.length; i++ ){
-
-          let marker = new window.google.maps.Marker({
-           position: this.state.allMarkers[i].location,
-           id : this.state.allMarkers[i].id ,
-           title : this.state.allMarkers[i].name,
-           map: map,
-           animation: window.google.maps.Animation.DROP,
-           info : this.state.allMarkers[i].categories.map(names => names.name )
-         });
-           marker.addListener('click',function(){
+          // Function when you click on one of the list item the info window opens 
+          function openInfoWindowFromList () {
             infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
-             infoWindow.open(map,marker) ;   
-           }) 
+            infoWindow.open(map,marker) ;   
+          }
 
-           bounds.extend(marker.position);
-
-       } // End Create markers and looping over them to display them on the map
-
-          map.fitBounds(bounds);
-
+   
+   
     } // Script Loaded
          
   } // End Component will receive props
@@ -120,7 +91,7 @@ class App extends Component {
       {/* End ClassName map */}
 
       <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} 
-                    infoWindowFromList = {()=>this.infoWindowFromList}
+                    openInfoWindowFromList = {this.openInfoWindowFromList}
       />
 
       </div>
