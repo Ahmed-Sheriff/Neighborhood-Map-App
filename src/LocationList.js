@@ -36,16 +36,16 @@ class LocationList extends Component {
         }
         else {
             this.setState({ list: this.props.allMarkersList.map(place => place.name) })
-        }   
+        }        
     }
-  
+    
+    // Open info window for the marker when clicking on any of list items    
     openInfoWindowFromList (place){
         this.props.markersArr.map(marker => {
         if(marker.title === place){
           window.google.maps.event.trigger(marker, 'click');
         }
-      })
-      console.log(place);   
+      }) 
     }
 
     render(){
@@ -72,6 +72,7 @@ class LocationList extends Component {
                 {this.state.list.map((list,index)=> 
                     <li className = 'link' tabIndex= '0' key={index} 
                        onClick = {(event)=>this.openInfoWindowFromList(list)}
+                       onKeyPress = {(event)=>this.openInfoWindowFromList(list)}
                     > {list} </li>  
 
                     )  

@@ -70,12 +70,21 @@ class App extends Component {
                 infoWindow.open(map,marker) ;
               }) 
             
-            } 
-
-          console.log(markersArr);
-         
+            }
           // End Create markers and looping over them to display them on the map
-      
+
+          // Function to filter marker during searching    
+          function fiteredMarker(){
+            let markersName = markersArr.filter(marker => marker.title);
+            let listName = this.state.allMarkers.filter(list => list.name);
+            if(markersName === listName){
+                markersName.map(marker => marker.setVisible(true));
+            }
+            else {
+              markersName.map(marker => marker.setVisible(false));
+            }
+          }
+
         }
         else {
           alert('Error : Script not loaded');
@@ -104,6 +113,7 @@ class App extends Component {
 
 
       <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} markersArr={markersArr}
+                    fiteredMarker = {this.fiteredMarker}
       />
 
         <footer><span>Ahmed Sherif</span></footer>
