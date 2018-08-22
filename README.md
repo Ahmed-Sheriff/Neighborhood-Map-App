@@ -22,9 +22,9 @@ npm start
 
 ### How to use this application
 
-- The user can just click on any marker on the map to get more details about.
+- You can just click on any marker on the map to get more details about.
 
-- Or just choose a place from the search input menu to know more about or choose a place to know more about from the sidebar list.
+- Or just Choose a restaurant from the side bar list menu or search for your favourite one from search input and click on the marker to know more details of it 
 
 ------
 
@@ -32,4 +32,4 @@ npm start
 
 - Application is available offline in production mood, not in development mood.
 
-##### Thanks Udacity . Thanks Google . It's was somehow hard journey but all the changes that happened to my choices deserve.
+##### Thanks Udacity . Thanks Google . For this opportunity . It was a tough journey but it deserve 

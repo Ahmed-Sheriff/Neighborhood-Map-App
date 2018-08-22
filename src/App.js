@@ -18,7 +18,9 @@ class App extends Component {
 
     query : '',
 
-    menu : []
+    menu : [] ,
+
+    markerIcon : true
     
   }
 
@@ -54,9 +56,11 @@ class App extends Component {
 
            // Event to close infoWindow when clicking on the map 
            map.addListener('click', function() {
-             infoWindow.close();
+             infoWindow.close(); 
            });
- 
+        
+          //var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+
            // Create markers and looping over them to display them on the map  
           for(let i= 0; i < this.state.allMarkers.length; i++ ){
 
@@ -64,19 +68,28 @@ class App extends Component {
               position: this.state.allMarkers[i].location,
               id : this.state.allMarkers[i].id ,
               title : this.state.allMarkers[i].name,
-              map: map,
-              animation: window.google.maps.Animation.DROP
+              map: map,  
+              animation: window.google.maps.Animation.DROP,
             });
-
-              markersArr.push(marker);
             
-              marker.addListener('click',function(){
+            markersArr.push(marker);
 
-                infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
-                infoWindow.open(map,marker) ;
-              }) 
-           console.log('markersArr ' + markersArr)
+            marker.addListener('click',function(){
+              infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
+              infoWindow.open(map,marker) ;
+              toggleBounce();
+            })
+
+            function toggleBounce() {
+              if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+              } else {
+                marker.setAnimation(window.google.maps.Animation.BOUNCE);
+              }
             }
+        }
+                     
+         console.log('markersArr ' + markersArr)
           // End Create markers and looping over them to display them on the map
 
           let listName = this.state.allMarkers.map(place => place.name);
@@ -90,7 +103,8 @@ class App extends Component {
        
   } // End Component will receive props
 
-    // Function to Filter both list menu and the markers  
+  
+    // Function to Filter both list menu and markers  
       filteredMarkerAndMenu = (query) => {
         const matching = new RegExp(escapeRegExp(query), 'i');
         let listNames = this.state.allMarkers.filter((place) => matching.test(place.name));

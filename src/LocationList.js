@@ -13,12 +13,8 @@ class LocationList extends Component {
      left:  "0"
    }
  
-    toggleMenuList = () => {
-     
-        this.setState({
-            isToogleOn: this.state.isToogleOn !== true
-        }) ;
-        
+    toggleMenuList = () => { 
+        this.setState({ isToogleOn: this.state.isToogleOn !== true }); 
     }
 
     // Open info window for the marker when clicking on any of list items    
