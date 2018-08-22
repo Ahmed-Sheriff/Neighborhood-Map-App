@@ -101,6 +101,7 @@ class App extends Component {
           }
           else {
               this.setState({ menu: this.state.allMarkers.map(place => place.name) })
+              markerNames.map(marker => marker.setVisible(false));
           }       
           console.log(query)   
       }
@@ -126,7 +127,6 @@ class App extends Component {
 
       <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} markersArr={markersArr}
                     menu = {this.state.menu}
-                    query = {this.state.query}
                     filteredMarkerAndMenu = {this.filteredMarkerAndMenu}
       />
 
