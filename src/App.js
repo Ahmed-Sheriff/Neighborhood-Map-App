@@ -80,32 +80,35 @@ class App extends Component {
           this.setState({menu : listName})
   
       }
+        
         else {
           alert('Error : Script not loaded');
         }
-       
+        
     } // Script Loaded
        
   } // End Component will receive props
 
-        //Filter marker during search in the menu
-        filteredMarkerAndMenu = (query) => {
-          const matching = new RegExp(escapeRegExp(query), 'i');
-          let listNames= this.state.allMarkers.filter((place) => matching.test(place.name));
-          let markerNames = markersArr.filter((marker)=> matching.test(marker.title));
-          if (listNames) {
+  
+      filteredMarkerAndMenu = (query) => {
+        this.setState({query : query});
+        const matching = new RegExp(escapeRegExp(query), 'i');
+        let listNames= this.state.allMarkers.filter((place) => matching.test(place.name));
+        let markerNames = markersArr.filter((marker)=> matching.test(marker.title));
+        if (listNames === markerNames) {
 
-              this.setState({ menu: listNames.map(place => place.name) });
-              markerNames.map(marker => marker.setVisible(true));
-              
-          }
-          else {
-              this.setState({ menu: this.state.allMarkers.map(place => place.name) })
-              markerNames.map(marker => marker.setVisible(false));
-          }       
-          console.log(query)   
+            this.setState({ menu: listNames.map(place => place.name) });
+           // markerNames.map(marker => marker.setVisible(tru));
+            
+        }
+        else {
+            this.setState({ menu: this.state.allMarkers.map(place => place.name) })
+            markerNames.map(marker => marker.setMap(null));
+        }       
+        console.log(query)   
       }
-
+    
+    
 
   render() {
 
@@ -125,9 +128,9 @@ class App extends Component {
       {/* End ClassName map */}
 
 
-      <LocationList allMarkersList = {this.state.allMarkers} query = {this.state.query} markersArr={markersArr}
+      <LocationList allMarkers = {this.state.allMarkers} query = {this.state.query} markersArr={markersArr}
                     menu = {this.state.menu}
-                    filteredMarkerAndMenu = {this.filteredMarkerAndMenu}
+                    filteredMarkerAndMenu = {(query)=>this.filteredMarkerAndMenu(query)}
       />
 
         <footer><span>Ahmed Sherif</span></footer>

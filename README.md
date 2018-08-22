@@ -24,8 +24,12 @@ npm start
 
 - The user can just click on any marker on the map to get more details about.
 
-- Or just choose a place from the list dropdown menu to know more about or choose a place to know more about from the sidebar list.
+- Or just choose a place from the search input menu to know more about or choose a place to know more about from the sidebar list.
 
 ------
+
+### Service worker
+
+- Application is available offline in production mood, not in development mood.
 
 ##### Thanks Udacity . Thanks Google . It's was somehow hard journey but all the changes that happened to my choices deserve.
