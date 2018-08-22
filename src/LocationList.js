@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import escapeRegExp from 'escape-string-regexp';
-class LocationList extends Component {
+//import escapeRegExp from 'escape-string-regexp';
 
+class LocationList extends Component {
     state = {
         isToogleOn : true ,
 
@@ -19,26 +19,26 @@ class LocationList extends Component {
    }
  
     toggleMenuList = () => {
-        let listName = this.props.allMarkersList.map(place => place.name);
+     
         this.setState({
-            list:  listName ,
             isToogleOn: this.state.isToogleOn !== true
         }) ;
         
     }
 
 // Search function
-    searchFilter = (query) => {
-        const matching = new RegExp(escapeRegExp(query), 'i');
-        let filtered = this.props.allMarkersList.filter((place) => matching.test(place.name));
-        if (filtered) {
-            this.setState({ list: filtered.map(place => place.name) })
-        }
-        else {
-            this.setState({ list: this.props.allMarkersList.map(place => place.name) })
-        }        
-    }
+    // searchFilter = (query) => {
+    //     const matching = new RegExp(escapeRegExp(query), 'i');
+    //     let filtered = this.props.allMarkersList.filter((place) => matching.test(place.name));
+    //     if (filtered) {
+    //         this.setState({ list: filtered.map(place => place.name) })
+    //     }
+    //     else {
+    //         this.setState({ list: this.props.allMarkersList.map(place => place.name) })
+    //     }        
+    // }
     
+
     // Open info window for the marker when clicking on any of list items    
     openInfoWindowFromList (place){
         this.props.markersArr.map(marker => {
@@ -66,10 +66,10 @@ class LocationList extends Component {
                 
                 <input  type= 'text' name = 'search' aria-label = 'input-search' 
                         placeholder = 'Search for locations'
-                        onChange = {(e)=>this.searchFilter(e.target.value)}
+                        onChange = {(e)=>this.props.filteredMarkerAndMenu(e.target.value)}
                  />
                 
-                {this.state.list.map((list,index)=> 
+                {this.props.menu.map((list,index)=> 
                     <li className = 'link' tabIndex= '0' key={index} 
                        onClick = {(event)=>this.openInfoWindowFromList(list)}
                        onKeyPress = {(event)=>this.openInfoWindowFromList(list)}

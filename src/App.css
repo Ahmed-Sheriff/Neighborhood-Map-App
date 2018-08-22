@@ -157,6 +157,10 @@ div.infoWindow {
     margin-left: 12px;
     flex-grow: 2;
   }
+  footer::after {
+    content: '';
+  }
+
 }
 
 /*  from 380px width to the max  */
