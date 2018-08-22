@@ -4,8 +4,11 @@ import LocationList from './LocationList';
 import escapeRegExp from 'escape-string-regexp';
 import './App.css';
 
-// Define an array to put created marker into it 
+// Define an array globally to put created markers into it  
 let markersArr = [];
+
+// Define the map variable golbally 
+let map;
 
 class App extends Component {
 
@@ -37,7 +40,7 @@ class App extends Component {
   
       if(isScriptLoadSucceed) {
 
-        let map = new window.google.maps.Map(document.getElementById('map'),{
+         map = new window.google.maps.Map(document.getElementById('map'),{
           center : {
                 lat: 24.0889, 
                 lng: 32.8998
@@ -78,9 +81,7 @@ class App extends Component {
 
           let listName = this.state.allMarkers.map(place => place.name);
           this.setState({menu : listName})
-  
       }
-        
         else {
           alert('Error : Script not loaded');
         }
@@ -89,27 +90,26 @@ class App extends Component {
        
   } // End Component will receive props
 
-  
+    // Function to Filter both list menu and the markers  
       filteredMarkerAndMenu = (query) => {
-        this.setState({query : query});
         const matching = new RegExp(escapeRegExp(query), 'i');
-        let listNames= this.state.allMarkers.filter((place) => matching.test(place.name));
-        let markerNames = markersArr.filter((marker)=> matching.test(marker.title));
-        if (listNames === markerNames) {
-
-            this.setState({ menu: listNames.map(place => place.name) });
-           // markerNames.map(marker => marker.setVisible(tru));
-            
+        let listNames = this.state.allMarkers.filter((place) => matching.test(place.name));
+        // Here listNames is an array of objects that match query search I need names only so I filtered them and returns names only
+        let placeName = listNames.map(place => place.name)
+        if (listNames) {
+          //Here I loop over marker array original one and make comparing between markers + placesname
+          markersArr.map(marker => {
+            placeName.includes(marker.title) ? marker.setMap(map) : marker.setMap(null)
+          })
+          this.setState({ menu: placeName })
+  
         }
         else {
-            this.setState({ menu: this.state.allMarkers.map(place => place.name) })
-            markerNames.map(marker => marker.setMap(null));
-        }       
-        console.log(query)   
+          this.setState({ menu: this.state.allMarkers.map(place => place.name) })
+        }
       }
     
     
-
   render() {
 
     return (
@@ -128,9 +128,8 @@ class App extends Component {
       {/* End ClassName map */}
 
 
-      <LocationList allMarkers = {this.state.allMarkers} query = {this.state.query} markersArr={markersArr}
-                    menu = {this.state.menu}
-                    filteredMarkerAndMenu = {(query)=>this.filteredMarkerAndMenu(query)}
+      <LocationList allMarkers = {this.state.allMarkers} markersArr={markersArr} menu = {this.state.menu}
+                    filteredMarkerAndMenu = {this.filteredMarkerAndMenu}
       />
 
         <footer><span>Ahmed Sherif</span></footer>

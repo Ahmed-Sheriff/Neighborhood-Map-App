@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
-//import escapeRegExp from 'escape-string-regexp';
 
 class LocationList extends Component {
     state = {
-        isToogleOn : true ,
-
-        query:'',
-
-        list : [] 
+        isToogleOn : true 
     }
     
      hideMenuList = {
@@ -25,19 +20,6 @@ class LocationList extends Component {
         }) ;
         
     }
-
-// Search function
-    // searchFilter = (query) => {
-    //     const matching = new RegExp(escapeRegExp(query), 'i');
-    //     let filtered = this.props.allMarkersList.filter((place) => matching.test(place.name));
-    //     if (filtered) {
-    //         this.setState({ list: filtered.map(place => place.name) })
-    //     }
-    //     else {
-    //         this.setState({ list: this.props.allMarkersList.map(place => place.name) })
-    //     }        
-    // }
-    
 
     // Open info window for the marker when clicking on any of list items    
     openInfoWindowFromList (place){
