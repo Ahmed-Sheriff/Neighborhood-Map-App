@@ -49,8 +49,9 @@ class LocationList extends Component {
                 
                 {this.props.menu.map((list,index)=> 
                     <li className = 'link' tabIndex= '0' key={index} 
-                       onClick = {(event)=>this.openInfoWindowFromList(list)}
-                       onKeyPress = {(event)=>this.openInfoWindowFromList(list)}
+                        role="button"
+                        onClick = {(event)=>this.openInfoWindowFromList(list)}
+                        onKeyPress = {(event)=>this.openInfoWindowFromList(list)}
                     > {list} </li>  
 
                     )  

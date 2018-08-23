@@ -32,4 +32,4 @@ npm start
 
 - Application is available offline in production mood, not in development mood.
 
-##### Thanks Udacity . Thanks Google . For this opportunity . It was a tough journey but it deserve 
+##### Thanks Udacity . Thanks Google . For this opportunity . It was a tough journey but it deserves 

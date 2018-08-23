@@ -19,15 +19,21 @@ class App extends Component {
     query : '',
 
     menu : [] ,
-
-    markerIcon : true
     
   }
 
   componentDidMount(){
+    //handleing  googlemaps error
+    window.gm_authFailure = () => {
+    alert('google maps error')
+  }
     fetch("https://api.foursquare.com/v2/venues/search?ll=24.0889,32.8998&intent=browse&limit=16&radius=10000&query=restaurant&client_id=NCUSJNELMTZK52IO4UXZDZTOXMDCGM1DZGO5NNP33BCZWX1Y&client_secret=K3CG2UZDUN4V2GBYLO5Z3PA0Q3GDW55R2X3LHBUHOA14R4VS&v=20180808").then(function(response){
         
+      if(response.ok){
           return response.json();        
+        }
+      throw Error('api failed')
+
     }).then((data)=>{
       this.setState({allMarkers: data.response.venues})
      console.log('allMarkers data ' + this.state.allMarkers)
@@ -53,15 +59,13 @@ class App extends Component {
 
            // Create an info window
            let infoWindow = new window.google.maps.InfoWindow();
-
+  
            // Event to close infoWindow when clicking on the map 
            map.addListener('click', function() {
-             infoWindow.close(); 
+             infoWindow.close();
            });
-        
-          //var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-
-           // Create markers and looping over them to display them on the map  
+      
+           // Create markers and display them on the map  
           for(let i= 0; i < this.state.allMarkers.length; i++ ){
 
               let marker = new window.google.maps.Marker({
@@ -75,22 +79,14 @@ class App extends Component {
             markersArr.push(marker);
 
             marker.addListener('click',function(){
-              infoWindow.setContent(`<div class = 'infoWindow'><p>${marker.title} </p></div>`)
+              infoWindow.setContent(`<div class = 'infoWindow'>
+              <h3>Restaurant Name :</h3>
+              <p>${marker.title}</p>
+              </div>`)
               infoWindow.open(map,marker) ;
-              toggleBounce();
             })
 
-            function toggleBounce() {
-              if (marker.getAnimation() !== null) {
-                marker.setAnimation(null);
-              } else {
-                marker.setAnimation(window.google.maps.Animation.BOUNCE);
-              }
-            }
-        }
-                     
-         console.log('markersArr ' + markersArr)
-          // End Create markers and looping over them to display them on the map
+        } // End Create markers and display them on the map
 
           let listName = this.state.allMarkers.map(place => place.name);
           this.setState({menu : listName})
@@ -103,7 +99,7 @@ class App extends Component {
        
   } // End Component will receive props
 
-  
+
     // Function to Filter both list menu and markers  
       filteredMarkerAndMenu = (query) => {
         const matching = new RegExp(escapeRegExp(query), 'i');
