@@ -36,7 +36,6 @@ class App extends Component {
 
     }).then((data)=>{
       this.setState({allMarkers: data.response.venues})
-     console.log('allMarkers data ' + this.state.allMarkers)
     }).catch(function(error){
             alert('There is error with Network ' + error );
         })
