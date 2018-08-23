@@ -11,7 +11,7 @@ body{
 
 #map{
   width: 100%;
-  height: calc(100% - 86px);
+  height: calc(100% - 90px);
   overflow: hidden;
   position: relative;
 }
@@ -30,12 +30,13 @@ body{
   padding : 10px 0;
   text-align: center;
   width: 100%;
+ 
 }
 
 #navigation nav.heading #header {
-  font-size: 15pt;
-  color: whitesmoke;
-  flex-grow: 1;
+  font-size: 16pt;
+  color: gold;
+  
 }
 
 #locationList .hamburger-menu {
@@ -58,13 +59,13 @@ body{
 
 #locationList .menu-list {
   position: absolute;
-  top: 43px ; 
+  top: 44px ; 
   left: 0;
   margin: 0;
   background-color: #4f91afec;
   width: 230px;
-  height:560px;
-  max-height:85vh;
+  height:78vh;
+  max-height:82vh; 
   overflow-y: scroll;
   list-style: none;
   padding-left: 0; 
@@ -144,7 +145,7 @@ div.infoWindow p {
   }
 
   footer span {
-    color: rgb(251, 255, 44);
+    color: gold;
     font-size: 14pt;  
   }
 
@@ -181,12 +182,19 @@ div.infoWindow p {
   }
 }
 
+@media screen and (max-height:320px) {
+  #locationList .menu-list  {
+    max-height: 70vh;
+  }
+} 
+
+
 /*  from 640px height to the max  */
 
 @media screen and (min-height:640px) {
   #locationList .menu-list  {
 
-    min-height: 90vh;
+    min-height: 85vh;
   }
 }
 
