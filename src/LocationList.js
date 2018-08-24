@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-
+import Menu from './Menu'
 class LocationList extends Component {
     state = {
-        isToogleOn : true 
+        isToogleOn : true     
     }
     
      hideMenuList = {
@@ -12,14 +12,17 @@ class LocationList extends Component {
    displayMenuList = {
      left:  "0"
    }
+
+ 
  
     toggleMenuList = () => { 
-        this.setState({ isToogleOn: this.state.isToogleOn !== true }); 
+        this.setState({ isToogleOn: this.state.isToogleOn !== true });
+        console.log(this.state.isToogleOn) 
     }
 
     // Open info window for the marker when clicking on any of list items    
     openInfoWindowFromList (place){
-        this.props.markersArr.map(marker => {
+        this.props.markersArr.forEach(marker => {
         if(marker.title === place){
           window.google.maps.event.trigger(marker, 'click');
         }
@@ -38,26 +41,14 @@ class LocationList extends Component {
                <p></p> 
             </div>
             
+            <Menu isToggleOn = {this.state.isToggleOn} 
+                  hideMenuList = {this.state.hideMenuList} 
+                  displayMenuList = {this.state.displayMenuList}
+                  filteredMarkerAndMenu = {this.props.filteredMarkerAndMenu}
+                  openInfoWindowFromList = {(place)=>this.openInfoWindowFromList(place)}
+                  menu = {this.props.menu}
 
-            <ul className='menu-list'  aria-label = 'list-menu' tabIndex = '1' 
-                style = {this.state.isToogleOn ? this.hideMenuList : this.displayMenuList}>
-                
-                <input  type= 'text' name = 'search' aria-label = 'input-search' 
-                        placeholder = 'Search for locations'
-                        onChange = {(e)=>this.props.filteredMarkerAndMenu(e.target.value)}
-                 />
-                
-                {this.props.menu.map((list,index)=> 
-                    <li className = 'link' tabIndex= '0' key={index} 
-                        role="button"
-                        onClick = {(event)=>this.openInfoWindowFromList(list)}
-                        onKeyPress = {(event)=>this.openInfoWindowFromList(list)}
-                    > {list} </li>  
-
-                    )  
-                }
-
-            </ul> 
+            />
 
            </nav> 
 
