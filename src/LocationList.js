@@ -3,7 +3,7 @@ import Menu from './Menu'
 class LocationList extends Component {
     
     state = {
-        isToogleOn : true     
+        isToggleOn : true     
     }
 
     hideMenuList = {
@@ -16,8 +16,7 @@ class LocationList extends Component {
     
     // Function to Toggle the menu list when clicking on hamburger menu  
     toggleMenuList = () => { 
-        this.setState({ isToogleOn: this.state.isToogleOn !== true });
-        console.log(this.state.isToogleOn) 
+        this.setState({ isToggleOn: this.state.isToggleOn !== true });
     }
 
     // Open info window for the marker when clicking on any of list items    
@@ -34,21 +33,20 @@ class LocationList extends Component {
         return (
 
             <nav id = 'locationList' aria-label = 'location-list' >
-            <div className='hamburger-menu' aria-label = 'hamburger-menu' tabIndex = '0'
-                onClick={this.toggleMenuList} onKeyPress={this.toggleMenuList} >
-               <p></p> 
-               <p></p>
-               <p></p> 
-            </div>
-            
-            <Menu   isToogleOn = {this.state.isToogleOn}
-                    hideMenuList = {this.hideMenuList}
-                    displayMenuList = {this.displayMenuList}   
-                    filteredMarkerAndMenu = {this.props.filteredMarkerAndMenu}
-                    openInfoWindowFromList = {(place)=>this.openInfoWindowFromList(place)}
-                    menu = {this.props.menu}
+                <div className='hamburger-menu' aria-label = 'hamburger-menu' tabIndex = '0'
+                    onClick={this.toggleMenuList} onKeyPress={this.toggleMenuList} >
+                    <p></p> 
+                    <p></p>
+                    <p></p> 
+                </div>
 
-            />
+                <Menu   isToggleOn = {this.state.isToggleOn}
+                        hideMenuList = {this.hideMenuList}
+                        displayMenuList = {this.displayMenuList}
+                        filteredMarkerAndMenu = {this.props.filteredMarkerAndMenu}                         
+                        openInfoWindowFromList = {(place)=>this.openInfoWindowFromList(place)}
+                        menu = {this.props.menu}
+                />
 
            </nav> 
 

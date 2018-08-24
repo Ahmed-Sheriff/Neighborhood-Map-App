@@ -60,7 +60,7 @@ body{
 #locationList .menu-list {
   position: absolute;
   top: 44px ; 
-  /* left: -100%; */
+  left: -100%; 
   margin: 0;
   background-color: #4f91afec;
   width: 230px;

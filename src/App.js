@@ -123,20 +123,22 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App" >
-     
-      <Header />
-     
-      <div id ='map' role= 'application' aria-label = 'location' ></div>
+
+        <div className="App" >
+
+            <Header />
+            
+            <div id ='map' role= 'application' aria-label = 'location' ></div>
+          
+            <LocationList venues = {this.state.venues} markersArr={this.state.markers} menu = {this.state.menu}
+                          filteredMarkerAndMenu = {this.filteredMarkerAndMenu}
+            />
+
+            <Footer />
+
+        </div>
     
-      <LocationList venues = {this.state.venues} markersArr={this.state.markers} menu = {this.state.menu}
-                    filteredMarkerAndMenu = {this.filteredMarkerAndMenu}
-      />
-
-      <Footer />
-
-      </div>
-    );
+      );
   }
 }
 

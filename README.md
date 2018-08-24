@@ -32,4 +32,12 @@ npm start
 
 - Application is available offline in production mood, not in development mood.
 
+### How to create the production app 
+
+- run the following command in your terminal : 
+
+- npm run build 
+
+- Then open it from your local server
+
 ##### Thanks Udacity . Thanks Google . For this opportunity . It was a tough journey but it deserves 
