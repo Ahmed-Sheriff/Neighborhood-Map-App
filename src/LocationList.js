@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import Menu from './Menu'
 class LocationList extends Component {
+    
     state = {
         isToogleOn : true     
     }
-    
-     hideMenuList = {
-     left:   "-100%"
-   }
- 
-   displayMenuList = {
-     left:  "0"
-   }
 
- 
- 
+    hideMenuList = {
+        left:   "-100%"
+      }
+    
+      displayMenuList = {
+        left:  "0"
+      }
+    
+    // Function to Toggle the menu list when clicking on hamburger menu  
     toggleMenuList = () => { 
         this.setState({ isToogleOn: this.state.isToogleOn !== true });
         console.log(this.state.isToogleOn) 
@@ -41,12 +41,12 @@ class LocationList extends Component {
                <p></p> 
             </div>
             
-            <Menu isToggleOn = {this.state.isToggleOn} 
-                  hideMenuList = {this.state.hideMenuList} 
-                  displayMenuList = {this.state.displayMenuList}
-                  filteredMarkerAndMenu = {this.props.filteredMarkerAndMenu}
-                  openInfoWindowFromList = {(place)=>this.openInfoWindowFromList(place)}
-                  menu = {this.props.menu}
+            <Menu   isToogleOn = {this.state.isToogleOn}
+                    hideMenuList = {this.hideMenuList}
+                    displayMenuList = {this.displayMenuList}   
+                    filteredMarkerAndMenu = {this.props.filteredMarkerAndMenu}
+                    openInfoWindowFromList = {(place)=>this.openInfoWindowFromList(place)}
+                    menu = {this.props.menu}
 
             />
 

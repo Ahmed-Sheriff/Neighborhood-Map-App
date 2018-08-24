@@ -69,10 +69,10 @@ class App extends Component {
 
     
     // Push markers onto markers so we can set markers to state later
-    const markers = []
+    let markers = []
     // Loop over venues and create markers for them
     this.state.venues.forEach(venue => {
-      const marker = new window.google.maps.Marker({
+      let marker = new window.google.maps.Marker({
         position: venue.location,
         id: venue.id,
         title: venue.name,
@@ -127,13 +127,8 @@ class App extends Component {
      
       <Header />
      
-        <div id ='map' role= 'application' aria-label = 'location' >
-            
-        </div>
-      
-      {/* End ClassName map */}
-
-
+      <div id ='map' role= 'application' aria-label = 'location' ></div>
+    
       <LocationList venues = {this.state.venues} markersArr={this.state.markers} menu = {this.state.menu}
                     filteredMarkerAndMenu = {this.filteredMarkerAndMenu}
       />

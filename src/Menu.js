@@ -2,28 +2,14 @@ import React, {Component} from 'react';
 
 class Menu extends Component {
 
-    // state = {
-
-    //     hideMenuList :  "-100%" ,
-
-    //     displayMenuList :  "0" , 
-    // }
-
-    // hideMenuList = () => {
-    //     if (this.state.displayMenuList === "0"){
-    //         this.state.hideMenuList;
-    //     } 
-    //     else {
-    //         this.state.displayMenuList;
-    //     }
-    //  }
-
-    render(){
+    render(){      
 
         return (
             
             <ul className='menu-list'  aria-label = 'list-menu' tabIndex = '1' 
-                style = {this.props.isToggleOn ? this.props.displayMenuList : this.props.hideMenuList}  >
+                style = {this.props.isToggleOn ? this.props.hideMenuList : this.props.displayMenuList } 
+               
+            >
                 
                 <input  type= 'text' name = 'search' aria-label = 'input-search' 
                         placeholder = 'Search for locations'
